@@ -23,7 +23,7 @@ class _SignUpState extends State<SignUp> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: 70,
+                height: 80,
               ),
               Text(
                 "Sign Up",
@@ -62,7 +62,7 @@ class _SignUpState extends State<SignUp> {
                     hintText: "Password",
                     fillColor: Colors.white,
                     filled: true,
-                    suffix: IconButton(
+                    suffixIcon: IconButton(
                       icon: Icon(
                         isPasswordVisible
                             ? Icons.visibility

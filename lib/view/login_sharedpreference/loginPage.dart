@@ -42,7 +42,7 @@ class _Login2State extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 70,
+                  height: 30,
                 ),
                 const Text(
                   "Login",
