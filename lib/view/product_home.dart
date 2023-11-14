@@ -7,17 +7,23 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-class ProductHome extends StatelessWidget {
+
+class ProductHome extends StatefulWidget {
+  @override
+  State<ProductHome> createState() => _ProductHomeState();
+}
+
+class _ProductHomeState extends State<ProductHome> {
   final ProductController productController = Get.put(ProductController());
 
   @override
   Widget build(BuildContext context) {
     var cartpage_list = context.watch<dataProvider>().carts;
     return Scaffold(
-      backgroundColor: Colors.amber[50],
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Text("Products"),
+        backgroundColor: const Color.fromARGB(255, 1, 28, 50),
+        title: const Text("Products"),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 7),
@@ -27,7 +33,7 @@ class ProductHome extends StatelessWidget {
                     .push(MaterialPageRoute(builder: (context) => Cart()));
               },
               child: Badge(
-                largeSize: 25,
+                largeSize: 5,
                 backgroundColor: Colors.green,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -43,25 +49,23 @@ class ProductHome extends StatelessWidget {
         ],
       ),
       drawer: Navdrawer(),
-      body: SizedBox(
-        child: Obx(() {
-          if (productController.isLoading.value) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else {
-            return GridView.builder(
-              itemCount: productController.productList.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-              ),
-              itemBuilder: (context, index) {
-                return ProductTile(productController.productList[index]);
-              },
-            );
-          }
-        }),
-      ),
+      body: Obx(() {
+        if (productController.isLoading.value) {
+          return  Center(
+            child: CircularProgressIndicator(),
+          );
+        } else {
+          return GridView.builder(
+            itemCount: productController.productList.length,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+            ),
+            itemBuilder: (context, index) {
+              return ProductTile(productController.productList[index]);
+            },
+          );
+        }
+      }),
     );
   }
 }

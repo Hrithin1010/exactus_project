@@ -26,7 +26,8 @@ class ProductTile extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
+            
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,7 +75,7 @@ class ProductTile extends StatelessWidget {
                     onTap: () {
                       {
                         if (cartList.contains(product)) {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                               content: Text("Item already in the cart...")));
                         } else {
                           Provider.of<dataProvider>(context, listen: false)
@@ -82,7 +83,7 @@ class ProductTile extends StatelessWidget {
                         }
                       }
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.shopping_cart,
                       size: 28,
                     ),

@@ -9,21 +9,18 @@ class Cart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cartList = context.watch<dataProvider>().carts;
-    num totalamount = 0;
-    for (var item in cartList) {
-      totalamount += (item.price! * item.count);
-    }
     return Scaffold(
-         backgroundColor: Colors.amber[50],
+      backgroundColor: Colors.white,
       appBar: AppBar(
-          title: Text(
-            " My Cart",
-            style: TextStyle(
-                fontSize: 21, color: Colors.white, fontWeight: FontWeight.bold),
-          ),
-          backgroundColor: Colors.black),
+        title: const Text(
+          " My Cart",
+          style: TextStyle(
+              fontSize: 21, color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: const Color.fromARGB(255, 1, 28, 50),
+      ),
       body: SingleChildScrollView(
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         child: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -35,7 +32,7 @@ class Cart extends StatelessWidget {
                     itemCount: cartList.length,
                     itemBuilder: (context, index) {
                       var item = cartList[index];
-                      totalamount = (item.price! * item.count) + totalamount;
+
                       return Card(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -52,7 +49,7 @@ class Cart extends StatelessWidget {
                                           image: NetworkImage(item.image!),
                                           fit: BoxFit.cover)),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 5,
                                 ),
                                 Column(
@@ -71,7 +68,7 @@ class Cart extends StatelessWidget {
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold),
                                         )),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 10,
                                     ),
                                     Padding(
@@ -79,7 +76,7 @@ class Cart extends StatelessWidget {
                                           top: 3, bottom: 6),
                                       child: Text(
                                         "\$${item.price.toString()}",
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontSize: 20,
                                             fontWeight: FontWeight.bold),
                                       ),
@@ -91,7 +88,7 @@ class Cart extends StatelessWidget {
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor: Colors.green,
                                           ),
-                                          child: Text(
+                                          child: const Text(
                                             "Buy Now",
                                             style: TextStyle(
                                               color: Colors.white,
@@ -115,11 +112,11 @@ class Cart extends StatelessWidget {
                                           .read<dataProvider>()
                                           .removefromCart(item);
                                       ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(
+                                          .showSnackBar(const SnackBar(
                                               content: Text(
                                                   "Successfully deleted")));
                                     },
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.delete_outline_outlined,
                                       size: 30,
                                       color: Colors.red,
@@ -134,7 +131,7 @@ class Cart extends StatelessWidget {
                                                 listen: false)
                                             .decrementItem(item);
                                       },
-                                      child: CircleAvatar(
+                                      child: const CircleAvatar(
                                         radius: 13,
                                         backgroundColor: Color(0xFF11334B),
                                         child: Icon(
@@ -148,7 +145,7 @@ class Cart extends StatelessWidget {
                                           left: 3, right: 3, top: 1),
                                       child: Text(
                                         item.count.toString(),
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 21,
                                         ),
                                       ),
@@ -159,7 +156,7 @@ class Cart extends StatelessWidget {
                                                 listen: false)
                                             .addItem(item);
                                       },
-                                      child: CircleAvatar(
+                                      child: const CircleAvatar(
                                         radius: 13,
                                         backgroundColor: Color(0xFF11334B),
                                         child: Icon(

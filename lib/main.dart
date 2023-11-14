@@ -1,6 +1,5 @@
-
 import 'package:exactus_project/controller/providerController.dart';
-import 'package:exactus_project/view/login_sharedpreference/signup.dart';
+import 'package:exactus_project/view/login_sharedpreference/loginPage.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -16,12 +15,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => dataProvider(), 
+      create: (context) => dataProvider(),
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        home: SignUp(),
+        home: LoginPage(),
       ),
     );
   }
 }
-

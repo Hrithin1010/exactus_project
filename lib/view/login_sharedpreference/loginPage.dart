@@ -1,4 +1,3 @@
-import 'package:exactus_project/view/login_sharedpreference/signup.dart';
 import 'package:exactus_project/view/product_home.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -34,19 +33,22 @@ class _Login2State extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.amber[50],
+      backgroundColor: Color.fromARGB(255, 1, 28, 50),
       body: Center(
         child: SingleChildScrollView(
           child: SafeArea(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                  height: 30,
+                const SizedBox(
+                  height: 20,
                 ),
                 const Text(
                   "Login",
-                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
                 ),
                 const SizedBox(
                   height: 30,
@@ -54,9 +56,11 @@ class _Login2State extends State<LoginPage> {
                 const Text(
                   "Welcome back you've been missed!",
                   style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 15,
-                      fontStyle: FontStyle.italic),
+                    fontWeight: FontWeight.w800,
+                    fontSize: 15,
+                    fontStyle: FontStyle.italic,
+                    color: Colors.white,
+                  ),
                 ),
                 const SizedBox(
                   height: 20,
@@ -65,7 +69,7 @@ class _Login2State extends State<LoginPage> {
                   padding: const EdgeInsets.all(15.0),
                   child: TextField(
                     controller: uname,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.white),
                       ),
@@ -83,7 +87,7 @@ class _Login2State extends State<LoginPage> {
                     controller: pass,
                     obscureText: !isPasswordVisible,
                     decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
+                      enabledBorder: const OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.white),
                       ),
                       focusedBorder: OutlineInputBorder(
@@ -105,44 +109,49 @@ class _Login2State extends State<LoginPage> {
                     ),
                   ),
                 ),
-                ElevatedButton(
-                    style:
-                        ElevatedButton.styleFrom(backgroundColor: Colors.black),
-                    onPressed: () => validateandLogin(),
-                    child: Text("Login")),
-                TextButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => SignUp()));
-                    },
-                    child: Text(
-                      "Go to signup page",
-                      style: TextStyle(
-                          color: Colors.black, fontStyle: FontStyle.italic),
-                    ))
+                const SizedBox(
+                  height: 20,
+                ),
+                InkWell(
+                  onTap: () async {
+                    preferences = await SharedPreferences.getInstance();
+                    String username = uname.text;
+                    String password = pass.text;
+
+                    if (username.isNotEmpty && password.isNotEmpty) {
+                      preferences.setString('uname', username);
+                      preferences.setString('pass', password);
+                      preferences.setBool('newuser', false);
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProductHome()));
+                    }
+                    uname.text = "";
+                    pass.text = "";
+                  },
+                  child: Container(
+                    height: 50,
+                    width: 200,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8)),
+                    child: const Center(
+                      child: Text(
+                        "Login",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 21,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                  ),
+                )
               ],
             ),
           ),
         ),
       ),
     );
-  }
-
-  void validateandLogin() async {
-    preferences = await SharedPreferences.getInstance()!;
-    String storedusername = preferences.getString('uname')!;
-    String storedpassword = preferences.getString('pass')!;
-
-    String usename = uname.text;
-    String pwd = pass.text;
-    preferences.setBool('newuser', false);
-
-    if (storedusername == usename && storedpassword == pwd) {
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => ProductHome()));
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Invalid username or password")));
-    }
   }
 }
