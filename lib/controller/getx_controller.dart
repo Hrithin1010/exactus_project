@@ -17,10 +17,8 @@ class ProductController extends GetxController{
     try{
       isLoading(true);
       var products=await HttpService.fetchProducts();
-      if(products!=null){
-        productList.value=products;
-      }
-    }catch(e){
+      productList.value=products;
+        }catch(e){
       print(e);
     }finally{
       isLoading(false);
